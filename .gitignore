@@ -2,3 +2,5 @@
 *.log
 *.net
 *_lib_sklib.py
+*.svg
+*.json

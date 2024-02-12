@@ -4,6 +4,9 @@ skidl-playground
 
 ### Notes
 - does not support KiCad 7 yet. Using [KiCad 6.0.11](https://downloads.kicad.org/kicad/windows/explore/stable/download/kicad-6.0.11-x86_64.exe)
+- it needs graphviz for SVG rendering
+- [`SpiceLib`](SpiceLib) not in sync with KiCad's `KICAD_SYMBOL_DIR`
+- [`SpiceLib`](SpiceLib) is from https://github.com/devbisme/skidl/tree/master/tests/examples/skidl_spice_test/SpiceLib
 
 ### Installing packages
 1. fill in package name with version to `requirements.txt`
