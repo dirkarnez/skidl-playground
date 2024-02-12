@@ -1,24 +1,15 @@
 from skidl import *
 
-# Create part templates.
-q = Part("Device", "Q_PNP_CBE", dest=TEMPLATE)
-r = Part("Device", "R", dest=TEMPLATE)
+set_default_tool(KICAD)
 
-# Create nets.
-gnd, vcc = Net("GND"), Net("VCC")
-a, b, a_and_b = Net("A"), Net("B"), Net("A_AND_B")
-
-# Instantiate parts.
-gndt = Part("power", "GND")             # Ground terminal.
-vcct = Part("power", "VCC")             # Power terminal.
-q1, q2 = q(2)                           # Two transistors.
-r1, r2, r3, r4, r5 = r(5, value="10K")  # Five 10K resistors.
-
-# Make connections between parts.
-a & r1 & q1["B C"] & r4 & q2["B C"] & a_and_b & r5 & gnd
-b & r2 & q1["B"]
-q1["C"] & r3 & gnd
-vcc += q1["E"], q2["E"], vcct
-gnd += gndt
+gnd = Net('GND')  # Ground reference.
+vin = Net('VI')   # Input voltage to the divider.
+vout = Net('VO')  # Output voltage from the divider.
+r1, r2 = 2 * Part('Device', 'R', TEMPLATE)  # Create two resistors.
+r1.value, r1.footprint = '1K',  'Resistor_SMD:R_0805_2012Metric'  # Set resistor values
+r2.value, r2.footprint = '500', 'Resistor_SMD:R_0805_2012Metric'  # and footprints.
+r1[1] += vin      # Connect the input to the first resistor.
+r2[2] += gnd      # Connect the second resistor to ground.
+vout += r1[2], r2[1]  # Output comes from the connection of the two resistors.
 
 generate_netlist()

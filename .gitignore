@@ -1,2 +1,4 @@
 *.erc
 *.log
+*.net
+*_lib_sklib.py
